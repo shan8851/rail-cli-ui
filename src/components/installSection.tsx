@@ -19,7 +19,7 @@ export const InstallSection = () => (
     <div className="max-w-3xl mx-auto">
       <SectionHeading
         title="Get started"
-        subtitle="Install globally via npm. No API key needed."
+        subtitle="Install globally via npm. Free API key for live train data."
       />
 
       <div className="space-y-4">
@@ -33,10 +33,16 @@ export const InstallSection = () => (
         ))}
       </div>
 
-      <p className="text-text-dim text-sm mt-6">
-        No API key required — uses the public Huxley2 instance backed by
-        National Rail Darwin data.
-      </p>
+      <div className="mt-6 space-y-2">
+        <p className="text-text-muted text-sm font-medium">
+          Get a free Darwin access token (instant signup):
+        </p>
+        <CodeBlock code="# Register at https://realtime.nationalrail.co.uk/OpenLDBWSRegistration" highlighted={false} />
+        <CodeBlock code="export DARWIN_ACCESS_TOKEN=your_token" highlighted={false} />
+        <p className="text-text-dim text-xs mt-2">
+          Station search works without a token. Departures and arrivals require one.
+        </p>
+      </div>
     </div>
   </section>
 )
