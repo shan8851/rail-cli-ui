@@ -1,13 +1,15 @@
-import { useRef, useState, useEffect } from "react"
 import { Github, Package } from "lucide-react"
-import { TerminalWindow } from "@/components/terminalWindow.tsx"
+import { useEffect, useRef, useState } from "react"
 import { CopyButton } from "@/components/copyButton.tsx"
+import { TerminalWindow } from "@/components/terminalWindow.tsx"
 import { TrackBackground } from "@/components/trackBackground.tsx"
-import { useTypingAnimation } from "@/hooks/useTypingAnimation.ts"
-import { useNpmVersion } from "@/hooks/useNpmVersion.ts"
 import { HERO_EXAMPLE } from "@/data/terminalExamples.ts"
+import { useTypingAnimation } from "@/hooks/useTypingAnimation.ts"
+import { buildInstallCommand } from "@/lib/npmPackage.ts"
 
-const INSTALL_COMMAND = "npm i -g @shan8851/rail-cli"
+type HeroSectionProps = {
+  npmVersion: string | null
+}
 
 const AnimatedTerminal = () => {
   const ref = useRef<HTMLDivElement>(null)
@@ -46,8 +48,8 @@ const AnimatedTerminal = () => {
   )
 }
 
-export const HeroSection = () => {
-  const npmVersion = useNpmVersion()
+export const HeroSection = ({ npmVersion }: HeroSectionProps) => {
+  const installCommand = buildInstallCommand(npmVersion)
 
   return (
     <section className="min-h-screen flex items-center relative overflow-hidden">
@@ -76,8 +78,8 @@ export const HeroSection = () => {
 
           <div className="flex items-center gap-3 px-4 py-3 rounded-lg border border-border-bright bg-terminal-bg font-mono text-sm mb-8 max-w-md">
             <span className="text-terminal-prompt select-none">$</span>
-            <code className="text-terminal-output flex-1">{INSTALL_COMMAND}</code>
-            <CopyButton text={INSTALL_COMMAND} />
+            <code className="text-terminal-output flex-1">{installCommand}</code>
+            <CopyButton text={installCommand} />
           </div>
 
           <div className="flex flex-wrap gap-3">

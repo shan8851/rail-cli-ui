@@ -1,30 +1,44 @@
-import { useState, useEffect } from "react"
-
-const NPM_REGISTRY_URL =
-  "https://registry.npmjs.org/@shan8851/rail-cli/latest"
+import { useEffect, useState } from "react"
+import {
+  npmRegistryLatestPackageUrl,
+  parseNpmPackageVersion,
+} from "@/lib/npmPackage.ts"
 
 export const useNpmVersion = (): string | null => {
-  const [version, setVersion] = useState<string | null>(null)
+  const [npmVersion, setNpmVersion] = useState<string | null>(null)
 
   useEffect(() => {
-    const fetchVersion = async () => {
+    const abortController = new AbortController()
+
+    const fetchVersion = async (): Promise<void> => {
       try {
-        const response = await fetch(NPM_REGISTRY_URL)
-        const data: unknown = await response.json()
-        if (
-          typeof data === "object" &&
-          data !== null &&
-          "version" in data &&
-          typeof (data as { version: unknown }).version === "string"
-        ) {
-          setVersion((data as { version: string }).version)
+        const response = await fetch(npmRegistryLatestPackageUrl, {
+          signal: abortController.signal,
+        })
+
+        if (!response.ok) {
+          return
         }
-      } catch {
+
+        const packageMetadata: unknown = await response.json()
+        const resolvedVersion = parseNpmPackageVersion(packageMetadata)
+
+        if (resolvedVersion !== null) {
+          setNpmVersion(resolvedVersion)
+        }
+      } catch (error: unknown) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return
+        }
+
         // silently fail -- badge just won't show
       }
     }
-    fetchVersion()
+
+    void fetchVersion()
+
+    return () => abortController.abort()
   }, [])
 
-  return version
+  return npmVersion
 }
