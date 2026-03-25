@@ -72,8 +72,8 @@ export const HeroSection = ({ npmVersion }: HeroSectionProps) => {
           </h1>
 
           <p className="text-text-muted text-lg leading-relaxed mb-8 max-w-lg">
-            Live departures, arrivals, delays, and platform info for every
-            National Rail station. One CLI, zero auth.
+            Live departures, arrivals, CRS search, and batch-friendly station lookups for agents.
+            Search works without a token. Live boards use a free Darwin token.
           </p>
 
           <div className="flex items-center gap-3 px-4 py-3 rounded-lg border border-border-bright bg-terminal-bg font-mono text-sm mb-8 max-w-md">

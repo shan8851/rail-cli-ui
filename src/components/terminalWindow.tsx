@@ -16,7 +16,7 @@ const TerminalLineRenderer = ({ line }: { readonly line: TerminalLine }) => {
     return (
       <div className="flex">
         <span className="text-terminal-prompt select-none mr-2">$</span>
-        <span className="text-text">{line.text}</span>
+        <span className="text-text whitespace-pre">{line.text}</span>
       </div>
     )
   }
@@ -29,7 +29,7 @@ const TerminalLineRenderer = ({ line }: { readonly line: TerminalLine }) => {
 
   return (
     <div
-      className="text-terminal-output"
+      className="text-terminal-output whitespace-pre"
       style={line.color ? { color: line.color } : undefined}
     >
       {line.text}

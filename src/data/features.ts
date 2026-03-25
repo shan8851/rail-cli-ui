@@ -4,8 +4,8 @@ import {
   ArrowDownLeft,
   Search,
   Filter,
-  Route,
-  MapPin,
+  Binary,
+  Rows3,
 } from "lucide-react"
 
 type Feature = {
@@ -21,7 +21,7 @@ export const FEATURES: ReadonlyArray<Feature> = [
     name: "Departures",
     command: "rail departures KGX",
     description:
-      "Live departure board for any UK station. Times, platforms, operators, and delays.",
+      "Live departure board for any UK station. Times, platforms, operators, and delay status.",
     icon: ArrowUpRight,
     accentColor: "var(--color-accent)",
   },
@@ -29,7 +29,7 @@ export const FEATURES: ReadonlyArray<Feature> = [
     name: "Arrivals",
     command: "rail arrivals WAT",
     description:
-      "Live arrivals with delay status, platform numbers, and origin information.",
+      "Live arrivals with status, origin information, and platform detail where available.",
     icon: ArrowDownLeft,
     accentColor: "var(--color-blue)",
   },
@@ -44,24 +44,25 @@ export const FEATURES: ReadonlyArray<Feature> = [
   {
     name: "Destination Filter",
     command: "rail departures LDS --to london",
-    description: "Filter departures to a specific destination station.",
+    description:
+      "Filter departures to a specific destination station without scraping full boards yourself.",
     icon: Filter,
     accentColor: "var(--color-blue)",
   },
   {
-    name: "Calling Points",
-    command: "rail departures KGX --expand",
+    name: "Field Selection",
+    command: 'rail search "waterloo" --select crs',
     description:
-      "See every stop along a service route. Full calling point detail.",
-    icon: Route,
+      "Return only the fields an agent needs. Perfect for CRS lookups and compact follow-up steps.",
+    icon: Binary,
     accentColor: "var(--color-accent)",
   },
   {
-    name: "Every Station",
-    command: "rail departures SHF",
+    name: "Batch Search",
+    command: 'printf "waterloo\\nvictoria\\n" | rail search --stdin',
     description:
-      "Covers all National Rail stations UK-wide. Over 2,500 stations.",
-    icon: MapPin,
+      "Read newline-delimited station queries from stdin and return grouped results in input order.",
+    icon: Rows3,
     accentColor: "var(--color-blue)",
   },
 ]

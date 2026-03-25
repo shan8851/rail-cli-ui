@@ -7,7 +7,7 @@ export const FeaturesSection = () => (
     <div className="max-w-6xl mx-auto">
       <SectionHeading
         title="What you can query"
-        subtitle="Three commands covering departures, arrivals, and station search across every National Rail station."
+        subtitle="Departures, arrivals, station search, plus batch search and lightweight field selection for agent workflows."
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

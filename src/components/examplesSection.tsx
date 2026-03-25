@@ -2,13 +2,15 @@ import { SectionHeading } from "@/components/sectionHeading.tsx"
 import { TerminalWindow } from "@/components/terminalWindow.tsx"
 import {
   SEARCH_EXAMPLE,
-  FILTERED_EXAMPLE,
+  SELECT_EXAMPLE,
+  BATCH_EXAMPLE,
   JSON_EXAMPLE,
 } from "@/data/terminalExamples.ts"
 
 const EXAMPLES = [
   { title: "Search stations", lines: SEARCH_EXAMPLE },
-  { title: "Filter by destination", lines: FILTERED_EXAMPLE },
+  { title: "Project just the CRS codes", lines: SELECT_EXAMPLE },
+  { title: "Batch search from stdin", lines: BATCH_EXAMPLE },
   { title: "JSON output for agents", lines: JSON_EXAMPLE },
 ] as const
 
@@ -17,7 +19,7 @@ export const ExamplesSection = () => (
     <div className="max-w-4xl mx-auto">
       <SectionHeading
         title="See it in action"
-        subtitle="Real output from the CLI. What you see is what you get."
+        subtitle="Real output from the CLI. Human-readable in the terminal, compact when agents only need the next step."
       />
 
       <div className="space-y-8">
